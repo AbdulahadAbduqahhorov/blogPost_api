@@ -4,7 +4,7 @@ const express = require('express')
 const app = express()
 
 app.use(express.json())
-
+app.use('/',loggerMiddeware)
 const loggerMiddeware = (req, res, next) => {
     let d = new Date,
         dformat = [d.getDate(),
@@ -34,8 +34,8 @@ app.get('/',(req, res) => {
 })
 const contactRouter = require('./routes/contact')
 const blogRouter = require('./routes/blog')
-app.use('/api/blog',loggerMiddeware,blogRouter)
-app.use('/api/contact',Auth,loggerMiddeware, contactRouter)
+app.use('/api/blog',blogRouter)
+app.use('/api/contact',Auth, contactRouter)
 app.listen(PORT, () => {
     console.log(`Server has started on port ${PORT}`)
 })
